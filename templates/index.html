@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body { width: 100%; margin: 0; padding: 0; background-color: #F6FAFA; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 min-h-screen flex flex-col items-center">
+    <main class="flex flex-col w-full max-w-2xl px-6 py-8 mx-auto">
+        
+        <!-- Header Block -->
+        <header class="flex flex-col items-center text-center mb-8">
+            <div class="inline-flex items-center gap-3 mb-2">
+                <span class="flex items-center justify-center w-12 h-12 rounded-xl bg-teal-100 text-teal-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </span>
+                <h1 class="text-3xl font-bold tracking-tight text-teal-600">WordWise</h1>
+            </div>
+            <p class="text-sm text-gray-500">Discover the building blocks of words.</p>
+        </header>
+
+        <!-- Input Card -->
+        <section class="bg-white rounded-2xl shadow-sm p-6 mb-8 flex flex-col gap-4 border border-gray-100">
+            <div class="flex flex-col gap-2">
+                <label class="text-xs uppercase tracking-wider text-gray-500 font-bold" for="wordInput">
+                    Enter an English word
+                </label>
+                <div class="relative flex items-center">
+                    <span class="material-symbols-outlined absolute left-4 text-gray-400 pointer-events-none">
+                        spellcheck
+                    </span>
+                    <input class="w-full bg-teal-50 text-gray-800 text-lg pl-12 pr-4 py-3 rounded-xl border border-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400 transition-colors" id="wordInput" placeholder="e.g. kindness, replaying" type="text" value="unbelievable">
+                </div>
+            </div>
+            
+            <button class="w-full bg-teal-600 hover:bg-teal-700 active:scale-[0.99] transition-all text-white font-semibold text-lg py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm" id="analyzeBtn" type="button">
+                <span class="material-symbols-outlined">search</span>
+                <span>Analyze Word</span>
+            </button>
+            
+            <div class="flex items-center justify-center gap-2 text-sm pt-1">
+                <span class="text-gray-400 font-medium">Try:</span>
+                <button class="sample-tag text-teal-600 hover:underline hover:text-teal-800" data-word="unhappy" type="button">unhappy</button>
+                <span class="text-gray-300">•</span>
+                <button class="sample-tag text-teal-600 hover:underline hover:text-teal-800" data-word="kindness" type="button">kindness</button>
+                <span class="text-gray-300">•</span>
+                <button class="sample-tag text-teal-600 hover:underline hover:text-teal-800" data-word="replaying" type="button">replaying</button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="flex flex-col gap-6" id="resultsSection">
+            <div class="flex items-center justify-between px-2">
+                <span class="text-2xl font-bold text-gray-900" id="displayWord">unbelievable</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-teal-100 text-teal-800 font-semibold">Morphemes Analyzed</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex flex-col items-center text-center p-5 rounded-2xl bg-teal-50 border border-teal-100 shadow-sm hover:-translate-y-1 transition-transform">
+                    <span class="text-xs tracking-wider uppercase font-bold text-teal-600 mb-2">Prefix</span>
+                    <span class="text-2xl font-bold text-teal-900 mb-1" id="cardPrefix">un-</span>
+                    <span class="text-xs text-teal-700" id="descPrefix">Changes meaning</span>
+                </div>
+                <div class="flex flex-col items-center text-center p-5 rounded-2xl bg-teal-100/50 border border-teal-200 shadow-sm hover:-translate-y-1 transition-transform">
+                    <span class="text-xs tracking-wider uppercase font-bold text-teal-600 mb-2">Root</span>
+                    <span class="text-2xl font-bold text-teal-900 mb-1" id="cardRoot">believe</span>
+                    <span class="text-xs text-teal-700" id="descRoot">Base morpheme</span>
+                </div>
+                <div class="flex flex-col items-center text-center p-5 rounded-2xl bg-teal-50 border border-teal-100 shadow-sm hover:-translate-y-1 transition-transform">
+                    <span class="text-xs tracking-wider uppercase font-bold text-teal-600 mb-2">Suffix</span>
+                    <span class="text-2xl font-bold text-teal-900 mb-1" id="cardSuffix">-able</span>
+                    <span class="text-xs text-teal-700" id="descSuffix">Changes form</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-3">
+                <span class="text-xs uppercase tracking-wider font-bold text-gray-400">Morphological Formula</span>
+                <div class="flex items-center justify-center flex-wrap gap-2" id="formulaContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="bg-teal-50/50 rounded-2xl p-5 flex items-start gap-4 border border-teal-100">
+                <span class="material-symbols-outlined text-2xl text-teal-500 mt-0.5">format_quote</span>
+                <p id="explanationText" class="text-base text-gray-700 leading-relaxed">
+                    The prefix 'un-' negates the root 'believe', and '-able' turns it into an adjective meaning capable of being believed.
+                </p>
+            </div>
+        </section>
+
+        <!-- NEW: Simplified Educational Section -->
+        <footer class="mt-12 pt-8 border-t border-gray-200 text-gray-600">
+            <h3 class="text-center font-bold text-gray-800 mb-6">How does WordWise work?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-2 mb-2 text-teal-600 font-semibold">
+                        <span class="material-symbols-outlined text-lg">manage_search</span>
+                        <h4>1. Word Analysis</h4>
+                    </div>
+                    <p class="leading-relaxed">You enter any English word, and the system analyzes its structure to break it down into smaller, meaningful parts.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-2 mb-2 text-teal-600 font-semibold">
+                        <span class="material-symbols-outlined text-lg">account_tree</span>
+                        <h4>2. Formula & Connections</h4>
+                    </div>
+                    <p class="leading-relaxed">The system identifies the root word, along with any prefixes and suffixes, and shows you the exact formula of how they connect to make a new word.</p>
+                </div>
+            </div>
+           
+        </footer>
+    </main>
+
+    <script>
+        (function () {
+            const wordInput = document.getElementById('wordInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const sampleTags = document.querySelectorAll('.sample-tag');
+            const formulaContainer = document.getElementById('formulaContainer');
+
+            sampleTags.forEach(tag => {
+                tag.addEventListener('click', function () {
+                    wordInput.value = this.getAttribute('data-word');
+                    wordInput.focus();
+                });
+            });
+
+            analyzeBtn.addEventListener('click', async function () {
+                const inputVal = wordInput.value.trim().toLowerCase();
+                if (!inputVal) return;
+
+                analyzeBtn.classList.add('opacity-90', 'scale-[0.98]');
+                setTimeout(() => analyzeBtn.classList.remove('opacity-90', 'scale-[0.98]'), 150);
+
+                try {
+                    const response = await fetch('/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ word: inputVal })
+                    });
+                    
+                    const data = await response.json();
+
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    document.getElementById('displayWord').innerText = data.word;
+                    document.getElementById('cardPrefix').innerText = data.prefix;
+                    document.getElementById('cardRoot').innerText = data.root;
+                    document.getElementById('cardSuffix').innerText = data.suffix;
+                    document.getElementById('explanationText').innerText = data.explanation;
+
+                    document.getElementById('descPrefix').innerText = data.prefix === "None" ? "No prefix found" : "Changes meaning";
+                    document.getElementById('descSuffix').innerText = data.suffix === "None" ? "No suffix found" : "Changes form";
+
+                    formulaContainer.innerHTML = "";
+                    let parts = [];
+                    if (data.prefix !== "None") {
+                        parts.push(`<span class="px-3 py-1.5 rounded-lg font-semibold bg-teal-100 text-teal-800">${data.prefix}</span>`);
+                    }
+                    parts.push(`<span class="px-3 py-1.5 rounded-lg font-semibold bg-teal-200/50 text-teal-900 border border-teal-200">${data.root}</span>`);
+                    if (data.suffix !== "None") {
+                        parts.push(`<span class="px-3 py-1.5 rounded-lg font-semibold bg-teal-100 text-teal-800">${data.suffix}</span>`);
+                    }
+
+                    const joinedParts = parts.join(' <span class="text-teal-300 font-bold mx-1">+</span> ');
+                    formulaContainer.innerHTML = `
+                        ${joinedParts} 
+                        <span class="text-teal-300 font-bold mx-1">=</span> 
+                        <span class="px-3 py-1.5 rounded-lg font-bold bg-teal-600 text-white shadow-sm">${data.word}</span>
+                    `;
+
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Failed to connect to the backend.");
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
